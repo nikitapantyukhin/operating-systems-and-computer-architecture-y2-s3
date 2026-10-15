@@ -1,0 +1,548 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\geometry{left=25mm,right=15mm,top=20mm,bottom=20mm}
+\setlength{\emergencystretch}{3em}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage{xurl}
+\usepackage{hyperref}
+\usepackage{needspace}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\studentName}{Пантюхин Никита Олегович}
+\newcommand{\studentGroup}{М8О-201БВ-25}
+\newcommand{\teacherName}{Миронов Евгений Сергеевич}
+\newcommand{\repoUrl}{https://github.com/nikitapantyukhin/operating-systems-and-computer-architecture-y2-s3/tree/main/lab2}
+
+\definecolor{codebg}{RGB}{247,247,247}
+\definecolor{codeframe}{RGB}{210,210,210}
+\definecolor{codecomment}{RGB}{80,120,80}
+\definecolor{codekeyword}{RGB}{30,70,160}
+
+\lstdefinestyle{cstyle}{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=4,
+  columns=fullflexible,
+  keepspaces=true,
+  aboveskip=0.6em,
+  belowskip=0.6em
+}
+
+\lstdefinestyle{terminal}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  aboveskip=0.6em,
+  belowskip=0.6em
+}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+{\large МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ}\\[0.15cm]
+{\large (НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ)}\\[0.8cm]
+
+{\large Кафедра 806 «Вычислительная математика и программирование»}
+
+\vfill
+
+{\Large\bfseries Лабораторная работа № 2 по курсу}\\[0.25cm]
+{\Large\bfseries «Операционные системы и архитектура компьютера»}
+
+\vfill
+
+\begin{flushright}
+\begin{tabular}{@{}rl@{}}
+Выполнил: & \studentName \\
+Группа: & \studentGroup \\
+Преподаватель: & \teacherName \\
+Оценка: & \underline{\hspace{4cm}} \\
+\end{tabular}
+\end{flushright}
+
+\vfill
+Москва, 2026
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Цель работы}
+
+Приобретение практических навыков управления процессами в операционной системе и организации обмена данными между процессами посредством каналов (pipe).
+
+В ходе работы необходимо было реализовать многопроцессную программу на языке C для Linux, создать дочерний процесс и организовать межпроцессное взаимодействие средствами POSIX API.
+
+\section{Постановка задачи}
+
+Для варианта 1 родительский процесс должен создать дочерний процесс. Первой строкой пользователь вводит имя выходного файла. Родительский и дочерний процессы должны быть представлены разными программами.
+
+Далее пользователь вводит строки вида
+\begin{center}
+\texttt{число число число<endline>},
+\end{center}
+где числа имеют тип \texttt{int}, а их количество в строке может быть произвольным. Родительский процесс передаёт введённые строки дочернему процессу через канал \texttt{pipe}. Стандартный поток ввода дочернего процесса связывается с каналом. Дочерний процесс вычисляет сумму чисел каждой строки и записывает результат в указанный файл.
+
+Обратный канал из схемы задания для варианта 1 не требуется: по условию он используется только при необходимости, а результат работы дочерний процесс записывает непосредственно в выходной файл.
+
+Программа также должна корректно обрабатывать ошибки системных вызовов и освобождать используемые ресурсы операционной системы.
+
+\section{Структура проекта}
+
+Структура директории лабораторной работы имеет следующий вид:
+
+\begin{lstlisting}[style=terminal]
+lab2/
+|-- build/
+|-- report/
+|   |-- report.pdf
+|   `-- report.tex
+|-- src/
+|   |-- child.c
+|   |-- io_utils.c
+|   |-- io_utils.h
+|   `-- parent.c
+|-- CMakeLists.txt
+|-- README.md
+`-- Лабораторная работа 2.pdf
+\end{lstlisting}
+
+В директории \texttt{src/} находится исходный код программы, а в \texttt{report/} --- исходный файл отчёта в формате LaTeX и собранный PDF. Директория \texttt{build/} содержит результаты сборки CMake. Файл \texttt{README.md} содержит краткое описание лабораторной работы, инструкции по сборке и запуску. Файл \texttt{Лабораторная работа 2.pdf} содержит исходное условие лабораторной работы.
+
+Сборка проекта автоматизирована с помощью CMake. Используется стандарт C17 с GNU/POSIX-расширениями. Для компиляции включены предупреждения \texttt{-Wall}, \texttt{-Wextra} и \texttt{-Wpedantic}.
+
+\section{Архитектура решения}
+
+Программа состоит из двух исполняемых файлов: \texttt{parent} и \texttt{child}.
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Parent} считывает имя файла, создаёт канал и дочерний процесс, передаёт пользовательские строки через канал и ожидает завершения дочернего процесса.
+    \item \textbf{Child} получает имя файла через \texttt{argv}, читает команды из стандартного ввода, связанного с каналом, проверяет входные данные, вычисляет сумму и записывает результат в файл.
+\end{itemize}
+
+Путь к исполняемому файлу \texttt{child} определяется относительно фактического расположения \texttt{parent} через \texttt{/proc/self/exe}. Поэтому запуск не зависит от текущей рабочей директории: корректно работают как \texttt{./parent} из \texttt{build/}, так и \texttt{./build/parent} из корня \texttt{lab2/}.
+
+\subsection{Схема межпроцессного взаимодействия}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.25cm,
+    every node/.style={font=\small},
+    proc/.style={draw, rounded corners, minimum width=3.0cm, minimum height=1.1cm, align=center},
+    obj/.style={draw, minimum width=2.7cm, minimum height=1.0cm, align=center},
+    arr/.style={-{Latex[length=2.5mm]}, thick},
+    lab/.style={fill=white, inner sep=1.5pt, font=\scriptsize}
+]
+\node[proc] (user) {Пользователь\\stdin parent};
+\node[proc, right=of user] (parent) {Процесс parent\\PID parent};
+\node[obj, right=of parent] (pipe) {pipe\\read end};
+\node[proc, right=of pipe] (child) {Процесс child\\PID child};
+\node[obj, below=1.0cm of child] (file) {Выходной файл\\result.txt};
+
+\draw[arr] (user) -- node[lab,above]{ввод} (parent);
+\draw[arr] (parent) -- node[lab,above]{write()} (pipe);
+\draw[arr] (pipe) -- node[lab,above]{stdin} (child);
+\draw[arr] (child) -- node[lab,right]{write()} (file);
+\end{tikzpicture}
+\end{center}
+
+Канал создаётся до вызова \texttt{fork()}, поэтому его файловые дескрипторы наследуются дочерним процессом. После \texttt{fork()} родитель закрывает read-end канала, а дочерний процесс закрывает write-end. Затем дочерний процесс выполняет \texttt{dup2()} для перенаправления своего стандартного ввода на канал и запускает отдельную программу \texttt{child} через \texttt{execl()}.
+
+\section{Ключевые фрагменты реализации}
+
+Ниже приведены ключевые фрагменты исходного кода, отражающие основные механизмы лабораторной работы: определение пути к дочерней программе, создание процессов и канала, перенаправление стандартного ввода, гарантированную запись данных, проверку входных значений и ожидание дочернего процесса.
+
+\Needspace{0.40\textheight}
+\subsection{Определение пути к дочерней программе}
+\begin{lstlisting}[style=cstyle,basicstyle=\ttfamily\scriptsize]
+static int get_child_path(char *child_path, size_t child_path_size) {
+    char parent_path[PATH_MAX];
+    ssize_t path_length = readlink("/proc/self/exe", parent_path, sizeof(parent_path) - 1);
+
+    if (path_length == -1) {
+        perror("readlink");
+        return -1;
+    }
+
+    if ((size_t)path_length >= sizeof(parent_path) - 1) {
+        fprintf(stderr, "Executable path is too long\n");
+        return -1;
+    }
+
+    parent_path[path_length] = '\0';
+    char *last_slash = strrchr(parent_path, '/');
+
+    if (last_slash == NULL) {
+        fprintf(stderr, "Failed to determine executable directory\n");
+        return -1;
+    }
+
+    *last_slash = '\0';
+    int result = snprintf(child_path, child_path_size, "%s/child", parent_path);
+
+    if (result < 0 || (size_t)result >= child_path_size) {
+        fprintf(stderr, "Child executable path is too long\n");
+        return -1;
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+Функция получает полный путь к запущенному \texttt{parent} через \texttt{/proc/self/exe}, выделяет каталог исполняемого файла и формирует путь к расположенному рядом \texttt{child}. Это устраняет зависимость \texttt{execl()} от текущей рабочей директории.
+
+\Needspace{0.31\textheight}
+\subsection{Создание канала и дочернего процесса}
+\begin{lstlisting}[style=cstyle]
+int pipefd[2];
+
+if (pipe(pipefd) == -1) {
+    perror("pipe");
+    free(filename);
+    return 1;
+}
+
+pid_t pid = fork();
+
+if (pid == -1) {
+    perror("fork");
+    close_fd(pipefd[0]);
+    close_fd(pipefd[1]);
+    free(filename);
+    return 1;
+}
+\end{lstlisting}
+
+После успешного \texttt{fork()} одновременно существуют два процесса. В родительском процессе возвращается PID дочернего процесса, а в дочернем --- значение 0.
+
+\Needspace{0.35\textheight}
+\subsection{Перенаправление stdin и запуск child}
+\begin{lstlisting}[style=cstyle,basicstyle=\ttfamily\scriptsize]
+if (pid == 0) {
+    if (close_fd(pipefd[1]) == -1) {
+        free(filename);
+        _exit(1);
+    }
+
+    if (dup2(pipefd[0], STDIN_FILENO) == -1) {
+        perror("dup2");
+        close_fd(pipefd[0]);
+        free(filename);
+        _exit(1);
+    }
+
+    if (close_fd(pipefd[0]) == -1) {
+        free(filename);
+        _exit(1);
+    }
+
+    execl(child_path, "child", filename, NULL);
+    perror("execl");
+    free(filename);
+    _exit(1);
+}
+\end{lstlisting}
+
+После перенаправления исходный read-end канала закрывается, так как стандартный ввод уже ссылается на тот же объект ядра. Затем запускается отдельная программа \texttt{child}.
+
+Вызов \texttt{dup2(pipefd[0], STDIN\_FILENO)} связывает файловый дескриптор 0 дочернего процесса с read-end канала. После этого \texttt{getline(..., stdin)} внутри программы \texttt{child} получает данные из канала. \texttt{execl()} заменяет исполняемую программу в уже существующем дочернем процессе и не изменяет его PID.
+
+\Needspace{0.40\textheight}
+\subsection{Гарантированная запись данных}
+
+Один вызов \texttt{write()} не обязан записывать весь переданный буфер, поэтому используется вспомогательная функция \texttt{write\_all()}.
+\begin{lstlisting}[style=cstyle]
+int write_all(int fd, const char *buffer, size_t size) {
+    size_t total_written = 0;
+
+    while (total_written < size) {
+        ssize_t bytes_written = write(fd, buffer + total_written, size - total_written);
+
+        if (bytes_written > 0) {
+            total_written += (size_t)bytes_written;
+            continue;
+        }
+
+        if (bytes_written == -1 && errno == EINTR) {
+            continue;
+        }
+
+        if (bytes_written == -1) {
+            perror("write");
+            return -1;
+        }
+
+        fprintf(stderr, "write: wrote 0 bytes\n");
+        return -1;
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+При \texttt{EINTR} системный вызов повторяется. При частичной записи отправка продолжается с первого ещё не записанного байта. Нулевая запись также рассматривается как ошибка.
+
+\Needspace{0.42\textheight}
+\subsection{Проверка и суммирование чисел}
+\begin{lstlisting}[style=cstyle]
+long long sum = 0;
+char *token = strtok(line, " \t\r\n");
+
+if (token == NULL) {
+    fprintf(stderr, "Empty input line\n");
+    return cleanup_on_error(line, file_fd);
+}
+
+while (token != NULL) {
+    errno = 0;
+    char *end = NULL;
+    long number = strtol(token, &end, 10);
+
+    if (end == token || *end != '\0' || errno == ERANGE ||
+        number < INT_MIN || number > INT_MAX) {
+        fprintf(stderr, "Invalid number: %s\n", token);
+        return cleanup_on_error(line, file_fd);
+    }
+
+    if ((number > 0 && sum > LLONG_MAX - number) ||
+        (number < 0 && sum < LLONG_MIN - number)) {
+        fprintf(stderr, "Sum overflow\n");
+        return cleanup_on_error(line, file_fd);
+    }
+
+    sum += number;
+    token = strtok(NULL, " \t\r\n");
+}
+\end{lstlisting}
+
+Функция \texttt{strtol()} позволяет проверить не только преобразование строки в число, но и наличие лишних символов и переполнение. Дополнительно контролируется диапазон типа \texttt{int}. Сама сумма хранится в \texttt{long long}, при этом перед сложением выполняется проверка на переполнение.
+
+\Needspace{0.28\textheight}
+\subsection{Завершение parent и обработка статуса child}
+\begin{lstlisting}[style=cstyle]
+int status;
+
+if (wait_for_child(pid, &status) == -1) {
+    return 1;
+}
+
+if (check_child_status(status) == -1) {
+    parent_error = 1;
+}
+\end{lstlisting}
+
+\texttt{waitpid()} используется для ожидания дочернего процесса, что исключает появление zombie-процесса. Parent проверяет, завершился ли child штатно, с ненулевым кодом или вследствие сигнала.
+
+\section{Обработка ошибок и краевых случаев}
+
+В программе предусмотрены следующие проверки:
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.33\textwidth} >{\raggedright\arraybackslash}p{0.59\textwidth}}
+\toprule
+\textbf{Ситуация} & \textbf{Реакция программы} \\
+\midrule
+Ошибка \texttt{pipe()} или \texttt{fork()} & Вывод сообщения через \texttt{perror()}, освобождение уже созданных ресурсов. \\
+Ошибка \texttt{readlink()}, \texttt{dup2()} или \texttt{execl()} & Вывод причины ошибки; дочерний процесс при ошибках подготовки к \texttt{exec} завершается через \texttt{\_exit(1)}. \\
+Ошибка \texttt{open()} & Child выводит причину ошибки и завершается с кодом 1. \\
+Ошибка \texttt{getline()} & EOF отделяется от реальной ошибки чтения с помощью \texttt{feof()} / \texttt{ferror()}. \\
+Пустая строка & Считается некорректной командой. \\
+Некорректный токен & \texttt{strtol()} и \texttt{end} позволяют обнаружить \texttt{abc}, \texttt{12abc}, одиночный знак и т.п. \\
+Число вне диапазона \texttt{int} & Проверка \texttt{INT\_MIN} и \texttt{INT\_MAX}. \\
+Слишком большое число & Проверка \texttt{errno == ERANGE}. \\
+Переполнение суммы & Проверяется до выполнения сложения. \\
+Child завершился раньше parent & Если parent попытается выполнить запись после закрытия read-end канала, \texttt{write()} возвращает \texttt{EPIPE}. \texttt{SIGPIPE} игнорируется, поэтому parent может обработать ошибку и затем выполнить \texttt{waitpid()}. \\
+Прерывание \texttt{write()} или \texttt{waitpid()} сигналом & При \texttt{EINTR} системный вызов повторяется. \\
+Закрытие ресурсов & Файловые дескрипторы закрываются, динамические буферы освобождаются. \\
+\bottomrule
+\end{longtable}
+
+Получение \texttt{EPIPE} не гарантировано при каждой ошибке child и зависит от порядка выполнения процессов. Если parent успел записать очередные строки в буфер pipe до завершения child, он может не получить \texttt{Broken pipe}; однако ненулевой статус дочернего процесса всё равно будет обнаружен через \texttt{waitpid()}.
+
+\section{Результаты работы}
+
+\subsection{Сборка проекта}
+
+Проект был собран GCC 13.3.0 с включёнными предупреждениями компилятора. Сборка завершилась без ошибок и предупреждений.
+
+\begin{lstlisting}[style=terminal]
+[ 16%] Building C object CMakeFiles/parent.dir/src/parent.c.o
+[ 33%] Building C object CMakeFiles/parent.dir/src/io_utils.c.o
+[ 50%] Linking C executable parent
+[ 50%] Built target parent
+[ 66%] Building C object CMakeFiles/child.dir/src/child.c.o
+[ 83%] Building C object CMakeFiles/child.dir/src/io_utils.c.o
+[100%] Linking C executable child
+[100%] Built target child
+\end{lstlisting}
+
+\subsection{Базовый сценарий}
+
+\begin{lstlisting}[style=terminal]
+$ ./parent
+Enter filename: result.txt
+Parent PID: 200568, Child PID: 200713
+Enter numbers line by line. Press Ctrl+D to finish.
+Child PID: 200713, Parent PID: 200568
+1 2 3
+10 20 30
+-5 10 15
+2147483647 -2147483648
+
+$ cat result.txt
+6
+60
+20
+-1
+\end{lstlisting}
+
+Вывод PID демонстрирует наличие двух разных процессов. Результаты в файле соответствуют суммам введённых чисел.
+
+\subsection{Некорректный ввод и возможный обрыв IPC}
+
+\begin{lstlisting}[style=terminal]
+$ ./parent
+Enter filename: result.txt
+Parent PID: 201710, Child PID: 201794
+Enter numbers line by line. Press Ctrl+D to finish.
+Child PID: 201794, Parent PID: 201710
+1 2 3
+10 abc 20
+Invalid number: abc
+30 40
+write: Broken pipe
+Child exited with code 1
+\end{lstlisting}
+
+В данном запуске дочерний процесс обнаружил неверный токен и завершился до следующей записи parent. Поэтому следующая попытка \texttt{write()} получила \texttt{EPIPE} (\texttt{Broken pipe}). При другом планировании процессов parent может успеть записать данные раньше и не получить \texttt{EPIPE}; корректность программы при этом сохраняется за счёт последующей проверки статуса child через \texttt{waitpid()}.
+
+\subsection{Проверка граничного значения int}
+
+\begin{lstlisting}[style=terminal]
+2147483647
+2147483648
+Invalid number: 2147483648
+\end{lstlisting}
+
+Значение \texttt{2147483647} принимается, а следующее значение корректно отвергается как выходящее за диапазон \texttt{int}.
+
+\Needspace{0.28\textheight}
+\subsection{Проверка строки большой длины}
+
+Была передана строка из 5000 чисел, равных единице:
+
+\begin{lstlisting}[style=terminal]
+$ python3 -c 'print("result.txt"); print(" ".join(["1"] * 5000))' | ./parent
+...
+$ cat result.txt
+5000
+\end{lstlisting}
+
+Использование \texttt{getline()} позволяет обрабатывать строки динамической длины без фиксированного массива вида \texttt{char line[1024]}.
+
+\section{Диагностика системных вызовов с помощью strace}
+
+После исправления пути к дочерней программе трассировка выполнялась из корня \texttt{lab2/}:
+
+\begin{lstlisting}[style=terminal]
+$ strace -f -o trace.txt ./build/parent
+\end{lstlisting}
+
+Параметр \texttt{-f} позволяет отслеживать как родительский, так и созданный им дочерний процесс. Ниже приведён сокращённый фрагмент трассировки:
+
+\Needspace{0.43\textheight}
+\begin{lstlisting}[style=terminal]
+344487 execve("./build/parent", ["./build/parent"], ...) = 0
+344487 write(1, "Enter filename: ", 16) = 16
+344487 pipe2([3, 4], 0) = 0
+344487 clone(..., SIGCHLD, ...) = 344560
+344487 close(3) = 0
+344560 close(4) = 0
+344560 dup2(3, 0) = 0
+344560 close(3) = 0
+344560 execve("/home/nikita/.../lab2/build/child",
+              ["child", "result.txt"], ...) = 0
+344560 write(2, "Child PID: 344560, Parent PID: 344487\n", 38) = 38
+344487 write(4, "1 2 3\n", 6) = 6
+344560 write(3, "6\n", 2) = 2
+344487 write(4, "10 20\n", 6) = 6
+344560 write(3, "30\n", 3) = 3
+344487 close(4) = 0
+344487 wait4(344560, <unfinished ...>
+344560 close(3) = 0
+344487 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 344560
+\end{lstlisting}
+
+В трассировке видно, что \texttt{execve()} запускает \texttt{child} по абсолютному пути внутри каталога \texttt{build}. Это подтверждает, что запуск дочерней программы больше не зависит от текущей рабочей директории. В конце фрагмента \texttt{wait4()} сначала блокируется, затем child закрывает выходной файл и завершается; после этого ожидание parent продолжается и возвращает успешный статус. Строка \texttt{exit\_group()} не попала в сокращённый вывод, поскольку трассировка была отфильтрована по ключевым системным вызовам.
+
+Следует учитывать, что библиотечные POSIX-функции могут быть реализованы через другие системные вызовы ядра Linux. В данном запуске вызову \texttt{pipe()} соответствует \texttt{pipe2()}, \texttt{fork()} --- \texttt{clone()}, а \texttt{waitpid()} --- \texttt{wait4()}.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Код программы} & \textbf{Наблюдаемый системный вызов} \\
+\midrule
+\texttt{pipe()} & \texttt{pipe2()} \\
+\texttt{fork()} & \texttt{clone()} \\
+\texttt{dup2()} & \texttt{dup2()} \\
+\texttt{execl()} & \texttt{execve()} \\
+\texttt{write()} & \texttt{write()} \\
+\texttt{close()} & \texttt{close()} \\
+\texttt{waitpid()} & \texttt{wait4()} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Трассировка подтверждает создание отдельного процесса, перенаправление стандартного ввода дочернего процесса, обмен данными через pipe, запись результата в файл и корректное ожидание завершения child.
+
+\section{Вывод}
+
+В ходе лабораторной работы была реализована многопроцессная программа на языке C под Linux. Родительский процесс создаёт дочерний процесс, организует однонаправленный канал передачи данных и перенаправляет стандартный ввод дочернего процесса на read-end канала. Дочерний процесс запускается как отдельная программа, обрабатывает произвольное количество целых чисел в каждой строке, вычисляет их сумму и записывает результаты в файл.
+
+В программе реализована проверка ошибок системных вызовов, обработка некорректных входных данных, защита от переполнений, обработка обрыва IPC, освобождение файловых дескрипторов и динамической памяти, а также ожидание дочернего процесса через \texttt{waitpid()}. Путь к программе \texttt{child} определяется относительно расположения исполняемого файла \texttt{parent}, поэтому запуск не зависит от текущего каталога. Работа основных системных механизмов дополнительно подтверждена трассировкой \texttt{strace}.
+
+\medskip
+\noindent\textbf{Репозиторий:}\par
+\begingroup\sloppy
+\url{\repoUrl}
+\endgroup
+
+\end{document}
