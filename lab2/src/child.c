@@ -68,11 +68,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (ferror(stdin)) {
-        perror("getline");
-        return cleanup_on_error(line, file_fd);
-    }
-
     free(line);
 
     if (close(file_fd) == -1) {

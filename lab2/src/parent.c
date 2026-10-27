@@ -41,9 +41,7 @@ int main(void) {
 
     fflush(stdout);
 
-    ssize_t filename_length = getline(&filename, &filename_size, stdin);
-
-    if (filename_length == -1) {
+    if (getline(&filename, &filename_size, stdin) == -1) {
         if (feof(stdin)) {
             fprintf(stderr, "Filename was not provided\n");
         } else {
@@ -117,11 +115,6 @@ int main(void) {
             parent_error = 1;
             break;
         }
-    }
-
-    if (ferror(stdin)) {
-        perror("getline");
-        parent_error = 1;
     }
 
     free(line);
