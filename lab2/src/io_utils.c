@@ -30,12 +30,3 @@ int write_all(int fd, const char *buffer, size_t size) {
 
     return 0;
 }
-
-int close_fd(int fd) {
-    if (close(fd) == -1) {
-        perror("close");
-        return -1;
-    }
-
-    return 0;
-}

@@ -10,7 +10,7 @@
 
 static int cleanup_on_error(char *line, int file_fd) {
     free(line);
-    close_fd(file_fd);
+    close(file_fd);
     return 1;
 }
 
@@ -51,12 +51,6 @@ int main(int argc, char *argv[]) {
                 return cleanup_on_error(line, file_fd);
             }
 
-            if ((number > 0 && sum > LLONG_MAX - number) ||
-                (number < 0 && sum < LLONG_MIN - number)) {
-                fprintf(stderr, "Sum overflow\n");
-                return cleanup_on_error(line, file_fd);
-            }
-
             sum += number;
             token = strtok(NULL, " \t\r\n");
         }
@@ -66,11 +60,6 @@ int main(int argc, char *argv[]) {
 
         if (result_length < 0) {
             fprintf(stderr, "Failed to format result\n");
-            return cleanup_on_error(line, file_fd);
-        }
-
-        if ((size_t)result_length >= sizeof(result)) {
-            fprintf(stderr, "Result buffer is too small\n");
             return cleanup_on_error(line, file_fd);
         }
 
@@ -86,7 +75,8 @@ int main(int argc, char *argv[]) {
 
     free(line);
 
-    if (close_fd(file_fd) == -1) {
+    if (close(file_fd) == -1) {
+        perror("close");
         return 1;
     }
 
