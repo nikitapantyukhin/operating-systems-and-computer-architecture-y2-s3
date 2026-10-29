@@ -1,0 +1,536 @@
+312761 execve("./build/lab3", ["./build/lab3", "-t", "4", "-n", "1024", "-d", "random"], 0x7ffddd6a0478 /* 43 vars */) = 0
+312761 brk(NULL)                        = 0x6391f2e08000
+312761 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x721665b50000
+312761 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+312761 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+312761 fstat(3, {st_mode=S_IFREG|0644, st_size=24819, ...}) = 0
+312761 mmap(NULL, 24819, PROT_READ, MAP_PRIVATE, 3, 0) = 0x721665b49000
+312761 close(3)                         = 0
+312761 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+312761 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+312761 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+312761 fstat(3, {st_mode=S_IFREG|0755, st_size=2129424, ...}) = 0
+312761 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+312761 mmap(NULL, 2174352, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x721665800000
+312761 mmap(0x721665828000, 1609728, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x721665828000
+312761 mmap(0x7216659b1000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b1000) = 0x7216659b1000
+312761 mmap(0x721665a00000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ff000) = 0x721665a00000
+312761 mmap(0x721665a06000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x721665a06000
+312761 close(3)                         = 0
+312761 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x721665b46000
+312761 arch_prctl(ARCH_SET_FS, 0x721665b46740) = 0
+312761 set_tid_address(0x721665b46a10)  = 312761
+312761 set_robust_list(0x721665b46a20, 24) = 0
+312761 rseq(0x721665b47060, 0x20, 0, 0x53053053) = 0
+312761 mprotect(0x721665a00000, 16384, PROT_READ) = 0
+312761 mprotect(0x6391b3fd9000, 4096, PROT_READ) = 0
+312761 mprotect(0x721665b90000, 8192, PROT_READ) = 0
+312761 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+312761 munmap(0x721665b49000, 24819)    = 0
+312761 getrandom("\x26\x2f\x4b\x06\xa6\x77\xd5\xbc", 8, GRND_NONBLOCK) = 8
+312761 brk(NULL)                        = 0x6391f2e08000
+312761 brk(0x6391f2e29000)              = 0x6391f2e29000
+312761 rt_sigaction(SIGRT_1, {sa_handler=0x721665899610, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x721665845330}, NULL, 8) = 0
+312761 rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+312761 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x721664fff000
+312761 mprotect(0x721665000000, 8388608, PROT_READ|PROT_WRITE) = 0
+312761 rt_sigprocmask(SIG_BLOCK, ~[], [], 8) = 0
+312761 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7216657ff990, parent_tid=0x7216657ff990, exit_signal=0, stack=0x721664fff000, stack_size=0x7fff80, tls=0x7216657ff6c0} => {parent_tid=[312762]}, 88) = 312762
+312761 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+312761 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7216647fe000
+312761 mprotect(0x7216647ff000, 8388608, PROT_READ|PROT_WRITE) = 0
+312761 rt_sigprocmask(SIG_BLOCK, ~[], [], 8) = 0
+312761 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x721664ffe990, parent_tid=0x721664ffe990, exit_signal=0, stack=0x7216647fe000, stack_size=0x7fff80, tls=0x721664ffe6c0} => {parent_tid=[312763]}, 88) = 312763
+312761 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+312762 rseq(0x7216657fffe0, 0x20, 0, 0x53053053 <unfinished ...>
+312761 <... rt_sigprocmask resumed>NULL, 8) = 0
+312762 <... rseq resumed>)              = 0
+312761 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x721663ffd000
+312762 set_robust_list(0x7216657ff9a0, 24 <unfinished ...>
+312761 mprotect(0x721663ffe000, 8388608, PROT_READ|PROT_WRITE) = 0
+312762 <... set_robust_list resumed>)   = 0
+312762 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+312761 rt_sigprocmask(SIG_BLOCK, ~[],  <unfinished ...>
+312762 <... rt_sigprocmask resumed>NULL, 8) = 0
+312761 <... rt_sigprocmask resumed>[], 8) = 0
+312761 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7216647fd990, parent_tid=0x7216647fd990, exit_signal=0, stack=0x721663ffd000, stack_size=0x7fff80, tls=0x7216647fd6c0} <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+312764 rseq(0x7216647fdfe0, 0x20, 0, 0x53053053 <unfinished ...>
+312761 <... clone3 resumed> => {parent_tid=[312764]}, 88) = 312764
+312764 <... rseq resumed>)              = 0
+312761 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+312764 set_robust_list(0x7216647fd9a0, 24) = 0
+312763 rseq(0x721664ffefe0, 0x20, 0, 0x53053053 <unfinished ...>
+312764 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+312764 <... rt_sigprocmask resumed>NULL, 8) = 0
+312763 <... rseq resumed>)              = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+312763 set_robust_list(0x721664ffe9a0, 24) = 0
+312763 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 3
+312762 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 4, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 4, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 4, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 8, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 8, NULL <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 8, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 3
+312762 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 12, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 12, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 12, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = 1
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 16, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 16, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 16, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 2
+312763 <... futex resumed>)             = 0
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 20, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 20, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 20, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 24, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 24, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 24, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 28, NULL <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 28, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 28, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 1
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 32, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 32, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 32, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 36, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 1
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 36, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 36, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 40, NULL <unfinished ...>
+312764 <... futex resumed>)             = 2
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 40, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 40, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 44, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 1
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 44, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 44, NULL <unfinished ...>
+312764 <... futex resumed>)             = 1
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 48, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 48, NULL <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 48, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = 0
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 2
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 52, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 52, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 52, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 56, NULL <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 56, NULL <unfinished ...>
+312762 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 56, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312764 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 60, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 60, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 60, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 64, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 2
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 64, NULL <unfinished ...>
+312762 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 64, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 68, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 68, NULL <unfinished ...>
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 68, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 72, NULL <unfinished ...>
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 72, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 72, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = 1
+312763 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 76, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 76, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 76, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 1
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 80, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 80, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 80, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 84, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 84, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 84, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 88, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 1
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 88, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 88, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 92, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 92, NULL <unfinished ...>
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 92, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 96, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312763 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 96, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 96, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 100, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 100, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 100, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 104, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 104, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 104, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 108, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 108, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 108, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 1
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 112, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 112, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 112, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 116, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 116, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 116, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 120, NULL <unfinished ...>
+312762 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 120, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 120, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 124, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 124, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 124, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 128, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 128, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 128, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 132, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 132, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 132, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 136, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 136, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 136, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 140, NULL <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 1
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 140, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 140, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 140, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 144, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 144, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 144, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 3
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 148, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 148, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 148, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 152, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 152, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 152, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 156, NULL <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 156, NULL <unfinished ...>
+312762 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 156, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 160, NULL <unfinished ...>
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 160, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 160, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 164, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 164, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 1
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 164, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 168, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 168, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 168, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 172, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 172, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 172, NULL <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 176, NULL <unfinished ...>
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 176, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 176, NULL <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 180, NULL <unfinished ...>
+312763 <... futex resumed>)             = 1
+312762 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 180, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 180, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 184, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 184, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 1
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 184, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 188, NULL <unfinished ...>
+312761 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 188, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 188, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 192, NULL <unfinished ...>
+312761 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 192, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 192, NULL <unfinished ...>
+312764 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 3
+312763 <... futex resumed>)             = 0
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 196, NULL <unfinished ...>
+312762 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 196, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 196, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312761 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 200, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 200, NULL <unfinished ...>
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 200, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 204, NULL <unfinished ...>
+312763 <... futex resumed>)             = 0
+312764 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 204, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 204, NULL <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 208, NULL <unfinished ...>
+312761 <... futex resumed>)             = 0
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 208, NULL <unfinished ...>
+312762 <... futex resumed>)             = 1
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 208, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312764 <... futex resumed>)             = 0
+312763 <... futex resumed>)             = 0
+312762 <... futex resumed>)             = 2
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 212, NULL <unfinished ...>
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 212, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 212, NULL <unfinished ...>
+312761 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312761 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 216, NULL <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = 0
+312764 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 216, NULL <unfinished ...>
+312763 futex(0x7ffe3a7ed554, FUTEX_WAIT_PRIVATE, 216, NULL <unfinished ...>
+312762 futex(0x7ffe3a7ed554, FUTEX_WAKE_PRIVATE, 2147483647 <unfinished ...>
+312764 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312763 <... futex resumed>)             = -1 EAGAIN (Resource temporarily unavailable)
+312762 <... futex resumed>)             = 1
+312761 <... futex resumed>)             = 0
+312764 rt_sigprocmask(SIG_BLOCK, ~[RT_1],  <unfinished ...>
+312763 rt_sigprocmask(SIG_BLOCK, ~[RT_1],  <unfinished ...>
+312762 rt_sigprocmask(SIG_BLOCK, ~[RT_1],  <unfinished ...>
+312761 futex(0x7216657ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 312762, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+312764 <... rt_sigprocmask resumed>NULL, 8) = 0
+312763 <... rt_sigprocmask resumed>NULL, 8) = 0
+312762 <... rt_sigprocmask resumed>NULL, 8) = 0
+312764 madvise(0x721663ffd000, 8368128, MADV_DONTNEED <unfinished ...>
+312763 madvise(0x7216647fe000, 8368128, MADV_DONTNEED <unfinished ...>
+312762 madvise(0x721664fff000, 8368128, MADV_DONTNEED <unfinished ...>
+312764 <... madvise resumed>)           = 0
+312763 <... madvise resumed>)           = 0
+312762 <... madvise resumed>)           = 0
+312764 exit(0 <unfinished ...>
+312763 exit(0 <unfinished ...>
+312764 <... exit resumed>)              = ?
+312763 <... exit resumed>)              = ?
+312762 exit(0 <unfinished ...>
+312764 +++ exited with 0 +++
+312763 +++ exited with 0 +++
+312762 <... exit resumed>)              = ?
+312761 <... futex resumed>)             = 0
+312762 +++ exited with 0 +++
+312761 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x3), ...}) = 0
+312761 write(1, "Array size: 1024\n", 17) = 17
+312761 write(1, "Requested threads: 4\n", 21) = 21
+312761 write(1, "Used threads: 4\n", 16) = 16
+312761 write(1, "Data type: random\n", 18) = 18
+312761 write(1, "Sorted: yes\n", 12)    = 12
+312761 write(1, "Time: 0.022262 s\n", 17) = 17
+312761 exit_group(0)                    = ?
+312761 +++ exited with 0 +++
