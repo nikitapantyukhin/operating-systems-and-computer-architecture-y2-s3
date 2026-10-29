@@ -1,0 +1,504 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Tinos}
+\setsansfont{Arimo}
+\setmonofont{DejaVu Sans Mono}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\geometry{left=38mm,right=25mm,top=38mm,bottom=25mm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\emergencystretch}{3em}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\studentName}{Пантюхин Никита Олегович}
+\newcommand{\studentGroup}{М8О-201БВ-25}
+\newcommand{\checkerName}{Миронов Евгений Сергеевич}
+
+\definecolor{codebg}{RGB}{247,247,247}
+\definecolor{codeframe}{RGB}{205,205,205}
+\definecolor{codecomment}{RGB}{70,110,70}
+\definecolor{codekeyword}{RGB}{30,70,150}
+\definecolor{headingone}{HTML}{1F3864}
+\definecolor{headingtwo}{HTML}{2E5FA3}
+\renewcommand{\lstlistingname}{Листинг}
+\DeclareCaptionLabelSeparator{reportdash}{~---~}
+\captionsetup[lstlisting]{labelsep=reportdash}
+\titleformat{\section}
+  {\color{headingone}\bfseries\fontsize{14}{17}\selectfont}
+  {\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\color{headingtwo}\bfseries\fontsize{13}{16}\selectfont}
+  {\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{18pt}{9pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+\lstdefinestyle{cstyle}{
+  language=C,basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment},backgroundcolor=\color{codebg},
+  frame=single,rulecolor=\color{codeframe},breaklines=true,
+  breakatwhitespace=false,showstringspaces=false,tabsize=4,
+  columns=fullflexible,keepspaces=true,captionpos=b,
+  aboveskip=0.7em,belowskip=0.9em
+}
+\lstdefinestyle{terminal}{
+  basicstyle=\ttfamily\footnotesize,backgroundcolor=\color{codebg},
+  frame=single,rulecolor=\color{codeframe},breaklines=true,
+  breakatwhitespace=false,showstringspaces=false,
+  columns=fullflexible,keepspaces=true,captionpos=b,
+  aboveskip=0.7em,belowskip=0.9em
+}
+
+% Скриншоты автоматически подставляются при наличии файла в screenshots/.
+% До добавления изображения на его месте отображается подписанное поле.
+\newcommand{\reportscreenshot}[2]{%
+  \begin{figure}[H]
+  \centering
+  \IfFileExists{screenshots/#1}{%
+    \includegraphics[width=0.94\linewidth,height=7.0cm,keepaspectratio]{screenshots/#1}%
+  }{%
+    \fbox{\begin{minipage}[c][4.3cm][c]{0.86\linewidth}
+      \centering\small\color{gray}
+      Место для скриншота\\[0.6em]
+      \texttt{screenshots/#1}
+    \end{minipage}}%
+  }
+  \caption*{Рисунок~--- #2}
+  \end{figure}
+}
+
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{10}{12}\selectfont\bfseries
+МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ\\
+РОССИЙСКОЙ ФЕДЕРАЦИИ}\\[0.2cm]
+{\fontsize{10}{12}\selectfont
+Федеральное государственное автономное образовательное учреждение высшего образования\\
+\textbf{«Московский авиационный институт\\
+(национальный исследовательский университет)»}}
+
+\vspace{2.2cm}
+{\fontsize{16}{19}\selectfont\bfseries ОТЧЁТ ПО ЛАБОРАТОРНОЙ РАБОТЕ}\\[0.15cm]
+{\fontsize{16}{19}\selectfont\bfseries № 3}
+
+\vspace{0.9cm}
+\textbf{Дисциплина:}\\[0.15cm]
+Операционные системы и архитектура компьютера
+
+\vspace{0.7cm}
+\textbf{Тема:}\\[0.15cm]
+Многопоточная битоническая сортировка массива целых чисел
+
+\vspace{2.0cm}
+\begin{flushright}
+\textbf{Выполнил:}\\[0.15cm]
+студент группы \studentGroup\\[0.1cm]
+\studentName\\[0.6cm]
+\textbf{Проверил:}\\[0.15cm]
+Преподаватель\\[0.1cm]
+\checkerName
+\end{flushright}
+\vfill
+Москва, 2026 г.
+\end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+\tableofcontents
+\newpage
+
+\section{Цель работы}
+Цель работы --- получить практические навыки создания и синхронизации потоков в Linux. Необходимо реализовать на языке C многопоточную битоническую сортировку массива целых чисел, предусмотреть ограничение максимального количества потоков ключом запуска и продемонстрировать их фактическое количество средствами операционной системы. Также требуется исследовать зависимость ускорения и эффективности алгоритма от количества потоков, размера и типа входных данных.
+
+\section{Краткое описание архитектуры решения}
+Программа реализована на языке C с использованием библиотеки POSIX Threads (\texttt{pthread}). Проект собирается с помощью CMake. Вся реализация находится в одном исходном файле \texttt{main.c}: программа обрабатывает аргументы командной строки, создаёт массив, запускает рабочие потоки, измеряет время сортировки и проверяет порядок элементов.
+
+Параметр \texttt{-t} задаёт максимальное количество одновременно участвующих потоков, включая главный. Параметр \texttt{-n} задаёт количество элементов, а необязательный параметр \texttt{-d} --- тип входных данных: \texttt{random}, \texttt{sorted}, \texttt{reverse} или \texttt{repeated}. Размер массива ограничен степенями двойки, начиная с двух элементов. Число используемых потоков не превышает $n/2$, поскольку на каждом шаге сети выполняется $n/2$ независимых сравнений.
+
+Битоническая сортировка последовательно строит группы элементов размера \texttt{size} и сравнивает пары на расстоянии \texttt{distance}. На каждом этапе потоки получают непересекающиеся диапазоны пар, поэтому не изменяют одни и те же элементы одновременно. После этапа все потоки встречаются на барьере \texttt{pthread\_barrier\_wait()}, чтобы следующий этап начался только после завершения текущего. Массив находится в общей памяти процесса, отдельные процессы не создаются.
+
+\clearpage
+\subsection{Схема взаимодействия компонентов}
+На рисунке показано распределение работы: главный поток также участвует в сортировке, остальные потоки создаются функцией \texttt{pthread\_create()}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  block/.style={draw,rounded corners,minimum height=0.82cm,align=center,font=\small},
+  line/.style={-{Latex[length=2.4mm]},thick},
+  txt/.style={font=\scriptsize,fill=white,inner sep=1pt}
+]
+\node[block,minimum width=8.2cm] (main) at (0,0) {\texttt{main.c}: генерация массива, параметры \texttt{-t}, \texttt{-n}, \texttt{-d}};
+\node[block,minimum width=8.2cm] (sort) at (0,-1.35) {Подготовка потоков и распределение пар сравнений};
+\node[block,minimum width=3.55cm] (th0) at (-2.25,-2.9) {Главный поток\\\texttt{worker(tasks[0])}};
+\node[block,minimum width=3.55cm] (thx) at (2.25,-2.9) {Дополнительные потоки\\\texttt{pthread\_create()}};
+\node[block,minimum width=8.2cm] (barrier) at (0,-4.45) {\texttt{pthread\_barrier\_wait()}: ожидание всех потоков после этапа};
+\node[block,minimum width=8.2cm] (finish) at (0,-5.8) {\texttt{pthread\_join()}, проверка результата и вывод времени};
+\draw[line] (main) -- (sort);
+\draw[line] (sort.south) |- (th0.north);
+\draw[line] (sort.south) |- (thx.north);
+\draw[line] (th0.south) |- (barrier.north);
+\draw[line] (thx.south) |- (barrier.north);
+\draw[line] (barrier) -- (finish);
+\end{tikzpicture}
+\caption*{Рисунок~--- Схема работы многопоточной сортировки}
+\end{figure}
+
+На каждом этапе выполняются независимые сравнения, а барьер обеспечивает правильный порядок этапов. Внутри этапа синхронизация между отдельными сравнениями не требуется.
+
+\Needspace{0.55\textheight}
+\section{Листинг ключевых фрагментов кода}
+Основная работа выполняется функцией \texttt{worker()}. Внешний цикл увеличивает размер группы вдвое, внутренний цикл уменьшает расстояние между сравниваемыми элементами вдвое. Направление сравнения чередуется между группами.
+
+\begin{lstlisting}[style=cstyle,caption={Сравнение элементов в рабочем потоке}]
+void *worker(void *arg) {
+    ThreadArgs *task = arg;
+
+    for (long long size = 2; size <= task->n; size *= 2) {
+        for (int distance = (int)(size / 2);
+             distance > 0; distance /= 2) {
+            for (int k = task->start; k < task->end; k++) {
+                int i = (k / distance) * (2 * distance)
+                        + (k % distance);
+                int j = i + distance;
+                int ascending = (i / size) % 2 == 0;
+
+                if ((ascending && task->arr[i] > task->arr[j]) ||
+                    (!ascending && task->arr[i] < task->arr[j])) {
+                    int temp = task->arr[i];
+                    task->arr[i] = task->arr[j];
+                    task->arr[j] = temp;
+                }
+            }
+            pthread_barrier_wait(task->barrier);
+        }
+    }
+    return NULL;
+}
+\end{lstlisting}
+
+\Needspace{0.32\textheight}
+Каждому потоку передаются указатель на общий массив, размер массива, границы диапазона пар и указатель на барьер. Диапазоны формируются так, чтобы все $n/2$ пар были распределены между потоками без пересечений.
+
+\begin{lstlisting}[style=cstyle,caption={Распределение диапазонов между потоками}]
+for (int t = 0; t < thread_count; t++) {
+    tasks[t].arr = arr;
+    tasks[t].n = n;
+    tasks[t].start = (int)((size_t)t * comparisons / thread_count);
+    tasks[t].end = (int)((size_t)(t + 1) * comparisons / thread_count);
+    tasks[t].barrier = &barrier;
+}
+\end{lstlisting}
+
+Дополнительные потоки создаются с помощью \texttt{pthread\_create()}. Главный поток выполняет ту же функцию \texttt{worker()}, затем ожидает остальные потоки через \texttt{pthread\_join()}.
+
+\begin{lstlisting}[style=cstyle,caption={Создание потоков и ожидание их завершения}]
+for (int t = 1; t < thread_count; t++) {
+    if (pthread_create(&threads[t - 1], NULL,
+                       worker, &tasks[t]) != 0) {
+        fprintf(stderr, "Thread creation failed\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+worker(&tasks[0]);
+
+for (int t = 0; t < thread_count - 1; t++) {
+    pthread_join(threads[t], NULL);
+}
+\end{lstlisting}
+
+\Needspace{0.31\textheight}
+Время измеряется монотонными часами \texttt{CLOCK\_MONOTONIC}: начало фиксируется перед созданием дополнительных потоков, а конец --- после их завершения. Генерация массива, проверка результата и вывод не входят в измеренный промежуток. При этом учитываются создание, синхронизация и завершение потоков.
+
+\begin{lstlisting}[style=cstyle,caption={Начало измерения времени}]
+struct timespec start_time, end_time;
+clock_gettime(CLOCK_MONOTONIC, &start_time);
+\end{lstlisting}
+
+После выполнения функции \texttt{worker()} главным потоком и ожидания остальных потоков с помощью \texttt{pthread\_join()} фиксируется конечное время и рассчитывается разность.
+
+\begin{lstlisting}[style=cstyle,caption={Окончание измерения времени}]
+clock_gettime(CLOCK_MONOTONIC, &end_time);
+
+double elapsed = (end_time.tv_sec - start_time.tv_sec) +
+                 (end_time.tv_nsec - start_time.tv_nsec) / 1e9;
+\end{lstlisting}
+
+После сортировки программа последовательно проверяет, что каждый элемент не меньше предыдущего, и выводит \texttt{Sorted: yes} при выполнении этого условия.
+
+\begin{lstlisting}[style=cstyle,caption={Проверка порядка элементов после сортировки}]
+int sorted = 1;
+for (int i = 1; i < n; i++) {
+    if (arr[i - 1] > arr[i]) {
+        sorted = 0;
+        break;
+    }
+}
+\end{lstlisting}
+
+Полный исходный код программы находится в файле \texttt{lab3/src/main.c}.
+
+\Needspace{0.36\textheight}
+\section{Результаты работы}
+Программа была собрана и проверена в среде WSL (Linux). Для исследования использовались массивы целых чисел размерами от 65\,536 до 4\,194\,304 элементов, а также 1, 2, 4 и 6 потоков. При создании случайных массивов использовалось фиксированное начальное значение генератора \texttt{srand(12345)}, что обеспечивает одинаковый набор данных при повторении запуска с тем же типом и размером массива.
+
+\subsection{Консольный вывод и проверка потоков}
+Ниже приведён фактический результат одного из запусков программы с шестью потоками. Время приведено по выводу терминала.
+
+\begin{lstlisting}[style=terminal,caption={Пример успешной сортировки массива}]
+$ ./build/lab3 -t 6 -n 1048576 -d repeated
+Array size: 1048576
+Requested threads: 6
+Used threads: 6
+Data type: repeated
+Sorted: yes
+Time: 0.294284 s
+\end{lstlisting}
+
+\Needspace{0.28\textheight}
+Фактическое количество потоков было продемонстрировано стандартной командой Linux \texttt{ps -L}. В момент работы программы её вывод содержал шесть строк с одним PID и шестью разными TID.
+
+\begin{lstlisting}[style=terminal,caption={Потоки процесса по данным команды ps -L}]
+    PID     TID STAT COMMAND
+  75244   75244 Rl+  lab3
+  75244   75254 Rl+  lab3
+  75244   75255 Rl+  lab3
+  75244   75256 Rl+  lab3
+  75244   75257 Rl+  lab3
+  75244   75258 Rl+  lab3
+\end{lstlisting}
+
+Одинаковый PID подтверждает принадлежность потоков одному процессу, а разные значения TID --- существование отдельных потоков. Таким образом, при ключе \texttt{-t 6} фактически использовались шесть потоков, включая главный.
+
+\subsection{Ускорение и эффективность}
+Ускорение $S(p)$ определялось как отношение времени однопоточной сортировки к времени работы $p$ потоков. Эффективность $E(p)$ показывает, насколько полно используется доступный параллелизм:
+\[
+S(p)=\frac{T(1)}{T(p)},\qquad E(p)=\frac{S(p)}{p}\cdot100\%.
+\]
+Для массива из 1\,048\,576 случайных элементов каждую конфигурацию запускали пять раз. В таблице приведены все фактические времена в секундах.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{c r r r r}
+\toprule
+\textbf{Запуск} & \textbf{1 поток} & \textbf{2 потока} & \textbf{4 потока} & \textbf{6 потоков} \\
+\midrule
+1 & 0,994904 & 0,474835 & 0,250886 & 0,336671 \\
+2 & 0,972518 & 0,498422 & 0,267290 & 0,313168 \\
+3 & 0,794891 & 0,426889 & 0,289247 & 0,330345 \\
+4 & 0,837853 & 0,548274 & 0,287952 & 0,320280 \\
+5 & 0,997526 & 0,537042 & 0,386954 & 0,327392 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Результаты пяти повторных измерений, с}
+\end{table}
+
+Чтобы уменьшить влияние разовых колебаний, для каждого количества потоков выбрана медиана пяти измерений. Для ускорения используется отношение медианного времени одного потока к медианному времени соответствующего числа потоков.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{c r r r}
+\toprule
+\textbf{Потоки} & \textbf{Медиана, с} & \textbf{Ускорение} & \textbf{Эффективность, \%} \\
+\midrule
+1 & 0,972518 & 1,00 & 100,00 \\
+2 & 0,498422 & 1,95 & 97,56 \\
+4 & 0,287952 & 3,38 & 84,43 \\
+6 & 0,327392 & 2,97 & 49,51 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Ускорение и эффективность по медианным временам}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ width=0.94\linewidth,height=6.0cm,
+ xlabel={Количество потоков},ylabel={Ускорение, раз},
+ xmin=0.8,xmax=6.2,ymin=0,ymax=6.5,
+ xtick={1,2,4,6},grid=major,grid style={gray!20},
+ legend pos=north west,
+ legend style={font=\footnotesize,draw=none,fill=none},
+ tick label style={font=\small},label style={font=\small}]
+\addplot[color=headingtwo,mark=*,thick] coordinates {(1,1) (2,1.9512) (4,3.3774) (6,2.9705)};
+\addlegendentry{Измеренное ускорение}
+\addplot[color=gray,dashed,thick] coordinates {(1,1) (2,2) (4,4) (6,6)};
+\addlegendentry{Идеальное ускорение}
+\end{axis}
+\end{tikzpicture}
+\caption*{Рисунок~--- Зависимость ускорения от количества потоков}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ width=0.94\linewidth,height=5.9cm,
+ xlabel={Количество потоков},ylabel={Эффективность, \%},
+ xmin=0.8,xmax=6.2,ymin=0,ymax=110,
+ xtick={1,2,4,6},ytick={0,20,40,60,80,100},
+ grid=major,grid style={gray!20},
+ tick label style={font=\small},label style={font=\small}]
+\addplot[color=headingtwo,mark=square*,thick] coordinates {(1,100) (2,97.5597) (4,84.4340) (6,49.5083)};
+\end{axis}
+\end{tikzpicture}
+\caption*{Рисунок~--- Зависимость эффективности от количества потоков}
+\end{figure}
+
+На данном размере массива наименьшее медианное время получено при четырёх потоках. Шесть потоков работали несколько медленнее: накладные расходы на создание и синхронизацию потоков, а также особенности выполнения в ОС могут снижать дополнительный выигрыш от параллелизма.
+
+\subsection{Влияние размера входного массива}
+Отдельно проведено по одному измерению для четырёх размеров случайного массива при каждом количестве потоков. Результаты приведены в секундах.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{r r r r r}
+\toprule
+\textbf{Элементов} & \textbf{1 поток} & \textbf{2 потока} & \textbf{4 потока} & \textbf{6 потоков} \\
+\midrule
+65\,536 & 0,042258 & 0,029752 & 0,024685 & 0,024834 \\
+262\,144 & 0,196706 & 0,125991 & 0,089934 & 0,083893 \\
+1\,048\,576 & 0,973696 & 0,475099 & 0,284199 & 0,339342 \\
+4\,194\,304 & 4,903357 & 1,966317 & 1,108901 & 1,102667 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Время сортировки в зависимости от размера массива, с}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ width=0.94\linewidth,height=6.6cm,
+ xlabel={Размер массива, элементов},ylabel={Время, с},
+ symbolic x coords={65536,262144,1048576,4194304},
+ xtick=data,xticklabels={65 тыс.,262 тыс.,1 млн,4,2 млн},
+ ymin=0,grid=major,grid style={gray!20},
+ legend style={at={(0.02,0.98)},anchor=north west,font=\scriptsize,draw=none,fill=none},
+ tick label style={font=\small},label style={font=\small}]
+\addplot[mark=*,thick,color=black] coordinates {(65536,0.042258) (262144,0.196706) (1048576,0.973696) (4194304,4.903357)};
+\addlegendentry{1 поток}
+\addplot[mark=square*,thick,color=headingtwo] coordinates {(65536,0.029752) (262144,0.125991) (1048576,0.475099) (4194304,1.966317)};
+\addlegendentry{2 потока}
+\addplot[mark=triangle*,thick,color=green!50!black] coordinates {(65536,0.024685) (262144,0.089934) (1048576,0.284199) (4194304,1.108901)};
+\addlegendentry{4 потока}
+\addplot[mark=diamond*,thick,color=orange!80!black] coordinates {(65536,0.024834) (262144,0.083893) (1048576,0.339342) (4194304,1.102667)};
+\addlegendentry{6 потоков}
+\end{axis}
+\end{tikzpicture}
+\caption*{Рисунок~--- Зависимость времени сортировки от размера массива}
+\end{figure}
+
+В таблице ниже для каждого размера представлены ускорение и эффективность шести потоков относительно одного, рассчитанные по соответствующим одиночным измерениям.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{r r r}
+\toprule
+\textbf{Элементов} & \textbf{Ускорение, 6 потоков} & \textbf{Эффективность, \%} \\
+\midrule
+65\,536 & 1,70 & 28,36 \\
+262\,144 & 2,34 & 39,08 \\
+1\,048\,576 & 2,87 & 47,82 \\
+4\,194\,304 & 4,45 & 74,11 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Ускорение и эффективность для различных размеров массивов}
+\end{table}
+
+При увеличении массива с 65\,536 до 4\,194\,304 элементов преимущество параллельной обработки становится заметнее. На наибольшем массиве один поток выполнял сортировку за 4,903357 с, а шесть потоков --- за 1,102667 с, то есть в данном запуске ускорение составило около 4,45 раза. Для небольшого массива затраты на работу с потоками составляют более значимую долю общего времени.
+
+\subsection{Влияние типа входных данных}
+Для массива из 1\,048\,576 элементов дополнительно сравнивались предварительно отсортированные, обратно отсортированные и содержащие повторения данные. Для каждой конфигурации выполнено по одному запуску.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{l r r r r}
+\toprule
+\textbf{Тип массива} & \textbf{1 поток} & \textbf{2 потока} & \textbf{4 потока} & \textbf{6 потоков} \\
+\midrule
+\texttt{sorted} & 0,996246 & 0,405243 & 0,380148 & 0,312504 \\
+\texttt{reverse} & 0,709495 & 0,418982 & 0,444729 & 0,467639 \\
+\texttt{repeated} & 1,324132 & 1,406348 & 0,852322 & 0,624758 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Время сортировки различных входных данных, с}
+\end{table}
+
+Для оценки влияния типа входных данных на масштабирование также рассчитаны ускорение и эффективность шести потоков относительно одного. Эти оценки основаны на одиночных измерениях.
+
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{l r r}
+\toprule
+\textbf{Тип массива} & \textbf{Ускорение, 6 потоков} & \textbf{Эффективность, \%} \\
+\midrule
+\texttt{sorted} & 3,19 & 53,13 \\
+\texttt{reverse} & 1,52 & 25,29 \\
+\texttt{repeated} & 2,12 & 35,32 \\
+\bottomrule
+\end{tabular}
+\caption*{Таблица~--- Масштабирование сортировки для разных типов данных}
+\end{table}
+
+В битонической сортировке последовательность этапов и число сравнений определяются размером массива, а не исходным порядком чисел. Различия наблюдаемого времени могут зависеть от числа обменов, поведения процессора, синхронизации и текущей нагрузки системы. Так как эти конфигурации измерялись однократно, результаты показывают наблюдения, но не доказывают устойчивое преимущество какого-либо типа массива или числа потоков.
+
+\clearpage
+\subsection{Скриншоты результатов}
+В разделе предусмотрены места для фактических скриншотов терминала. Файлы \texttt{run.png}, \texttt{threads.png} и \texttt{measurements.png} необходимо положить в папку \texttt{report/screenshots/}; при следующей сборке они автоматически появятся на своих местах.
+
+\reportscreenshot{run.png}{Успешный запуск многопоточной сортировки}
+\reportscreenshot{threads.png}{Наблюдение шести потоков с помощью команды ps -L}
+\reportscreenshot{measurements.png}{Измерения времени сортировки при разном количестве потоков}
+
+\Needspace{0.24\textheight}
+
+\section{Выводы}
+
+После выполнения этой лабораторной я лучше понял, как устроена
+многопоточность в Linux и чем потоки отличаются от отдельных процессов.
+На практике я разобрался, как создавать потоки с помощью
+\texttt{pthread\_create()}, ожидать их завершения через
+\texttt{pthread\_join()} и синхронизировать работу с помощью барьеров.
+
+При реализации битонической сортировки я научился распределять
+вычисления между несколькими потоками и проверять их количество
+средствами операционной системы. Также я увидел, что увеличение
+числа потоков не всегда приводит к ускорению программы, поскольку
+на производительность влияют размер массива и затраты на синхронизацию.
+
+Благодаря этой работе я стал лучше понимать принципы параллельного
+выполнения задач и способы оценки его эффективности.
+\end{document}
