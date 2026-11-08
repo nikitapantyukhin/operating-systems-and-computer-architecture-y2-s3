@@ -1,0 +1,135 @@
+4166264 execve("./parent", ["./parent"], 0x7ffe559a6a28 /* 44 vars */) = 0
+4166264 brk(NULL)                       = 0x5c277d9f6000
+4166264 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7b971c9a8000
+4166264 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+4166264 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+4166264 fstat(3, {st_mode=S_IFREG|0644, st_size=24819, ...}) = 0
+4166264 mmap(NULL, 24819, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7b971c9a1000
+4166264 close(3)                        = 0
+4166264 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+4166264 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+4166264 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+4166264 fstat(3, {st_mode=S_IFREG|0755, st_size=2129424, ...}) = 0
+4166264 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+4166264 mmap(NULL, 2174352, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7b971c600000
+4166264 mmap(0x7b971c628000, 1609728, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7b971c628000
+4166264 mmap(0x7b971c7b1000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b1000) = 0x7b971c7b1000
+4166264 mmap(0x7b971c800000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ff000) = 0x7b971c800000
+4166264 mmap(0x7b971c806000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7b971c806000
+4166264 close(3)                        = 0
+4166264 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7b971c99e000
+4166264 arch_prctl(ARCH_SET_FS, 0x7b971c99e740) = 0
+4166264 set_tid_address(0x7b971c99ea10) = 4166264
+4166264 set_robust_list(0x7b971c99ea20, 24) = 0
+4166264 rseq(0x7b971c99f060, 0x20, 0, 0x53053053) = 0
+4166264 mprotect(0x7b971c800000, 16384, PROT_READ) = 0
+4166264 mprotect(0x5c2742ef3000, 4096, PROT_READ) = 0
+4166264 mprotect(0x7b971c9e8000, 8192, PROT_READ) = 0
+4166264 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+4166264 munmap(0x7b971c9a1000, 24819)   = 0
+4166264 rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[PIPE], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7b971c645330}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+4166264 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x11), ...}) = 0
+4166264 getrandom("\xd0\x36\xf7\x26\xea\x2f\xe6\x4b", 8, GRND_NONBLOCK) = 8
+4166264 brk(NULL)                       = 0x5c277d9f6000
+4166264 brk(0x5c277da17000)             = 0x5c277da17000
+4166264 write(1, "Enter filename: ", 16) = 16
+4166264 fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x11), ...}) = 0
+4166264 read(0, "result.txt\n", 1024)   = 11
+4166264 pipe2([3, 4], 0)                = 0
+4166264 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7b971c99ea10) = 4166387
+4166387 set_robust_list(0x7b971c99ea20, 24 <unfinished ...>
+4166264 close(3)                        = 0
+4166387 <... set_robust_list resumed>)  = 0
+4166264 getpid( <unfinished ...>
+4166387 close(4 <unfinished ...>
+4166264 <... getpid resumed>)           = 4166264
+4166387 <... close resumed>)            = 0
+4166387 dup2(3, 0 <unfinished ...>
+4166264 write(1, "Parent PID: 4166264, Child PID: "..., 40 <unfinished ...>
+4166387 <... dup2 resumed>)             = 0
+4166264 <... write resumed>)            = 40
+4166387 close(3 <unfinished ...>
+4166264 write(1, "Enter numbers line by line. Pres"..., 52 <unfinished ...>
+4166387 <... close resumed>)            = 0
+4166264 <... write resumed>)            = 52
+4166387 execve("./child", ["child", "result.txt"], 0x7fff5342eed8 /* 44 vars */ <unfinished ...>
+4166264 read(0,  <unfinished ...>
+4166387 <... execve resumed>)           = 0
+4166387 brk(NULL)                       = 0x5f83172f6000
+4166387 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7294431de000
+4166387 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+4166387 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+4166387 fstat(3, {st_mode=S_IFREG|0644, st_size=24819, ...}) = 0
+4166387 mmap(NULL, 24819, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7294431d7000
+4166387 close(3)                        = 0
+4166387 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+4166387 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+4166387 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+4166387 fstat(3, {st_mode=S_IFREG|0755, st_size=2129424, ...}) = 0
+4166387 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+4166387 mmap(NULL, 2174352, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x729442e00000
+4166387 mmap(0x729442e28000, 1609728, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x729442e28000
+4166387 mmap(0x729442fb1000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b1000) = 0x729442fb1000
+4166387 mmap(0x729443000000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ff000) = 0x729443000000
+4166387 mmap(0x729443006000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x729443006000
+4166387 close(3)                        = 0
+4166387 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7294431d4000
+4166387 arch_prctl(ARCH_SET_FS, 0x7294431d4740) = 0
+4166387 set_tid_address(0x7294431d4a10) = 4166387
+4166387 set_robust_list(0x7294431d4a20, 24) = 0
+4166387 rseq(0x7294431d5060, 0x20, 0, 0x53053053) = 0
+4166387 mprotect(0x729443000000, 16384, PROT_READ) = 0
+4166387 mprotect(0x5f8313715000, 4096, PROT_READ) = 0
+4166387 mprotect(0x72944321e000, 8192, PROT_READ) = 0
+4166387 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+4166387 munmap(0x7294431d7000, 24819)   = 0
+4166387 getppid()                       = 4166264
+4166387 getpid()                        = 4166387
+4166387 write(2, "Child PID: 4166387, Parent PID: "..., 40) = 40
+4166387 openat(AT_FDCWD, "result.txt", O_WRONLY|O_CREAT|O_TRUNC, 0644) = 3
+4166387 getrandom("\x8e\x5c\x45\xa8\x31\xe6\xb7\x5a", 8, GRND_NONBLOCK) = 8
+4166387 brk(NULL)                       = 0x5f83172f6000
+4166387 brk(0x5f8317317000)             = 0x5f8317317000
+4166387 fstat(0, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
+4166387 read(0,  <unfinished ...>
+4166264 <... read resumed>"1 2 3\n", 1024) = 6
+4166264 write(4, "1 2 3\n", 6)          = 6
+4166387 <... read resumed>"1 2 3\n", 4096) = 6
+4166264 read(0, "10 20 30\n", 1024)     = 9
+4166387 write(3, "6\n", 2 <unfinished ...>
+4166264 write(4, "10 20 30\n", 9 <unfinished ...>
+4166387 <... write resumed>)            = 2
+4166264 <... write resumed>)            = 9
+4166264 read(0,  <unfinished ...>
+4166387 read(0, "10 20 30\n", 4096)     = 9
+4166387 write(3, "60\n", 3)             = 3
+4166387 read(0,  <unfinished ...>
+4166264 <... read resumed>"-5 10 15\n", 1024) = 9
+4166264 write(4, "-5 10 15\n", 9)       = 9
+4166387 <... read resumed>"-5 10 15\n", 4096) = 9
+4166264 read(0,  <unfinished ...>
+4166387 write(3, "20\n", 3)             = 3
+4166387 read(0,  <unfinished ...>
+4166264 <... read resumed>"3 9384 934  344 34 4 3\n", 1024) = 23
+4166264 write(4, "3 9384 934  344 34 4 3\n", 23) = 23
+4166387 <... read resumed>"3 9384 934  344 34 4 3\n", 4096) = 23
+4166264 read(0,  <unfinished ...>
+4166387 write(3, "10706\n", 6)          = 6
+4166387 read(0,  <unfinished ...>
+4166264 <... read resumed>"4 5 34 3 45 \n", 1024) = 13
+4166264 write(4, "4 5 34 3 45 \n", 13)  = 13
+4166387 <... read resumed>"4 5 34 3 45 \n", 4096) = 13
+4166264 read(0,  <unfinished ...>
+4166387 write(3, "91\n", 3)             = 3
+4166387 read(0,  <unfinished ...>
+4166264 <... read resumed>"", 1024)     = 0
+4166264 close(4)                        = 0
+4166387 <... read resumed>"", 4096)     = 0
+4166264 wait4(4166387,  <unfinished ...>
+4166387 close(3)                        = 0
+4166387 exit_group(0)                   = ?
+4166387 +++ exited with 0 +++
+4166264 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 4166387
+4166264 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4166387, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4166264 exit_group(0)                   = ?
+4166264 +++ exited with 0 +++
